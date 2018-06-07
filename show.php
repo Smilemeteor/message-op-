@@ -1,8 +1,11 @@
-<?php 
-header("content-type:text/html;charset=utf-8");
-mysql_connect('127.0.0.1','root','root');
-mysql_select_db('test');
-mysql_query('set names utf8');
+<?php
+header("content-type:text/html;charset=utf-8");//设置字符编码
+//连接数据库 mysql_connect()    mysql错误提示：mysql_error()   错误码：mysql_errno()
+@mysql_connect('127.0.0.1','root','root')or die("连接失败，错误为".mysql_error());
+//选择数据库 mysql_select_db()
+mysql_select_db("test");
+//设置字符集 set names utf8  mysql_query()执行sql语句
+mysql_query("set names utf8");
 $sql = "select * from message";
 $res = mysql_query($sql);
 ?>
@@ -30,7 +33,10 @@ $res = mysql_query($sql);
   <td><?php echo $row['title']; ?></td>
   <td>00:00</td>
   <td><?php echo $row['text']; ?></td>
-  <td><a href=''>删除</a>||<a href=''>修改</a></td>
+  <td>
+    <a href='del.php?id=<?php echo $row['id'];?>'>删除</a>||
+    <a href='upd.php?id=<?php echo $row['id'];?>'>修改</a>
+  </td>
   </tr>
   <?php } ?>
 </body>
